@@ -10,7 +10,7 @@ class SpikeTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         #Instantiate driver
-        print(os.getcwd())
+        #Replace path with local path or add chromedriver to environment variable PATH
         cls.driver = webdriver.Chrome(r"C:\Users\obaid\PycharmProjects\CS506SeleniumDemo\Drivers\chromedriver.exe")
         cls.driver.implicitly_wait(10)
         cls.driver.maximize_window()
@@ -24,14 +24,14 @@ class SpikeTest(unittest.TestCase):
         signup = SignUpPage(driver)
 
         #Regular sign-up
-        signup.enter_all_details("HAL900085xy", "openthepodbaydoors", "1234567890", "customer", "Stripe", "1210 W Dayton St", "42", "Madison", "WI", "53706")
+        signup.enter_all_details("HAL9000", "openthepodbaydoors", "1234567890", "customer", "Stripe", "1210 W Dayton St", "42", "Madison", "WI", "53706")
 
         #Redirect to Log-In Page
         driver.get("http://spikelocal/sign-in/")
 
         #Sign-In using the same details
         login = LoginPage(driver)
-        login.login("HAL900085xy","openthepodbaydoors")
+        login.login("HAL9000","openthepodbaydoors")
 
         #Check if the user is redirected  to the home page
         self.assertEqual(self.driver.current_url, "http://spikelocal/menu/")
@@ -41,14 +41,14 @@ class SpikeTest(unittest.TestCase):
         driver = self.driver
         driver.get("http://spikelocal/create-account/")
         signup = SignUpPage(driver)
-        signup.enter_all_details("R2-D2xy","beepboopbeep","1234567890","customer","Stripe","1210 W Dayton St","42","Madison","WI","53706")
+        signup.enter_all_details("R2-D2","beepboopbeep","1234567890","customer","Stripe","1210 W Dayton St","42","Madison","WI","53706")
 
         #Redirect to Log-In Page
         driver.get("http://spikelocal/sign-in/")
 
         #Sign-In using the same details
         login = LoginPage(driver)
-        login.login("R2-D2xy","beepboopbeep")
+        login.login("R2-D2","beepboopbeep")
 
         #Check if the user is redirected to an error page
         self.assertEqual(self.driver.current_url, "http://spikelocal/sign-in/index.php","Invalid characters allowed in username")
@@ -58,14 +58,14 @@ class SpikeTest(unittest.TestCase):
         driver = self.driver
         driver.get("http://spikelocal/create-account/")
         signup = SignUpPage(driver)
-        signup.enter_all_details("deepthoughtxy","42","1234567890","customer","Stripe","1210 W Dayton St","42","Madison","WI","53706")
+        signup.enter_all_details("deepthought","42","1234567890","customer","Stripe","1210 W Dayton St","42","Madison","WI","53706")
 
         #Redirect to Log-In Page
         driver.get("http://spikelocal/sign-in/")
 
         #Sign-In using the same details
         login = LoginPage(driver)
-        login.login("deepthoughtxy","42")
+        login.login("deepthought","42")
 
         #Check if the user is redirected to an error page
         self.assertEqual(self.driver.current_url, "http://spikelocal/sign-in/index.php","Short Passwords Accepted")
@@ -75,14 +75,14 @@ class SpikeTest(unittest.TestCase):
         driver = self.driver
         driver.get("http://spikelocal/create-account/")
         signup = SignUpPage(driver)
-        signup.enter_all_details("skynetxy","illbeback","xyz","customer","Stripe","1210 W Dayton St","42","Madison","WI","53706")
+        signup.enter_all_details("skynet","illbeback","xyz","customer","Stripe","1210 W Dayton St","42","Madison","WI","53706")
 
         #Redirect to Log-In Page
         driver.get("http://spikelocal/sign-in/")
 
         #Sign-In using the same details
         login = LoginPage(driver)
-        login.login("skynetxy","illbeback")
+        login.login("skynet","illbeback")
 
         #Check if the user is redirected to an error page
         self.assertEqual(self.driver.current_url, "http://spikelocal/sign-in/index.php","Invalid Phone Number Accepted")

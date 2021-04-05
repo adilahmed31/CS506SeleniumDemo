@@ -19,7 +19,14 @@ class Locators():
     mobilephone_textbox_name= "phone_mobile"
     addressAlias_textbox_name = "alias"
     register_button_name = "submitAccount"
+    signup_email_textbox_name = "email_create"
+    signup_button_name = "SubmitCreate"
 
     #Search Page
     search_textbox_name = "search_query"
     search_button_name = "submit_search"
+
+    #Login Page
+    login_email_textbox_name = "email"
+    login_password_textbox_name = "passwd"
+    login_button_name = "SubmitLogin"
