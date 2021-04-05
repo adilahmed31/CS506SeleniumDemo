@@ -1,6 +1,12 @@
 from PracticeExercise.Locators.locators import Locators
 from selenium.webdriver.support.ui import Select
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
 
+#This code can be probably refactored further by calling the method directly within the constructor
 class SignUpPage():
 
     def __init__(self,driver):
@@ -32,12 +38,15 @@ class SignUpPage():
             self.driver.find_element_by_name(self.title_radiobutton_name+"2").click()
 
     def enter_first_name(self,firstName):
+        self.driver.find_element_by_name(self.firstName_textbox_name).clear()
         self.driver.find_element_by_name(self.firstName_textbox_name).send_keys(firstName)
 
-    def enter_last_name(self,lastName)
+    def enter_last_name(self,lastName):
+        self.driver.find_element_by_name(self.lastName_testbox_name).clear()
         self.driver.find_element_by_name(self.lastName_testbox_name).send_keys(lastName)
 
     def enter_email(self,email):
+        self.driver.find_element_by_name(self.email_textbox_name).clear()
         self.driver.find_element_by_name(self.email_textbox_name).send_keys(email)
 
     def enter_password(self,password):
@@ -56,9 +65,11 @@ class SignUpPage():
         year_of_birth.select_by_value(year)
 
     def enter_first_name_address(self,firstName):
-        self.driver.find_element_by_name(self.firstNameForAddress_textbox_name_textbox_name).send_keys(firstName)
+        self.driver.find_element_by_name(self.firstNameForAddress_textbox_name).clear()
+        self.driver.find_element_by_name(self.firstNameForAddress_textbox_name).send_keys(firstName)
 
     def enter_last_name_address(self,lastName):
+        self.driver.find_element_by_name(self.lastNameForAddress_textbox_name).clear()
         self.driver.find_element_by_name(self.lastNameForAddress_textbox_name).send_keys(lastName)
 
     def enter_address(self,address):
@@ -69,23 +80,24 @@ class SignUpPage():
 
     def select_state(self,state):
         day_of_birth = Select(self.driver.find_element_by_name(self.state_dropdown_name))
-        day_of_birth.select_by_value(state)
+        day_of_birth.select_by_visible_text(state)
 
     def enter_zip(self,zipcode):
         self.driver.find_element_by_name(self.zip_textbox_name).send_keys(zipcode)
 
     def select_country(self,country):
-        country = Select(self.driver.find_element_by_id(self.country_dropdown_id))
-        country.select_by_visible_text(country)
+        country_name = Select(self.driver.find_element_by_id(self.country_dropdown_id))
+        country_name.select_by_visible_text(country)
 
     def enter_mobilephone(self,mobilephone):
         self.driver.find_element_by_name(self.mobilephone_textbox_name).send_keys(mobilephone)
 
     def enter_address_alias(self,alias):
+        self.driver.find_element_by_name(self.addressAlias_textbox_name).clear()
         self.driver.find_element_by_name(self.addressAlias_textbox_name).send_keys(alias)
 
     def click_button(self):
-        self.driver.find_element_by_name(self.title_radiobutton_name).click()
+        self.driver.find_element_by_name(self.register_button_name).click()
 
     def enter_details(self, firstName, lastName, email, password, day, month, year, firstNameAddress, lastNameAddress, address, city, state, zipcode, country, mobilephone, alias):
         #self.select_title(title)
@@ -106,3 +118,13 @@ class SignUpPage():
         self.enter_mobilephone(mobilephone)
         self.enter_address_alias(alias)
         self.click_button()
+
+    def initiate_signup(self,email):
+        self.driver.find_element_by_name(Locators.signup_email_textbox_name).send_keys(email)
+        self.driver.find_element_by_name(Locators.signup_button_name).click()
+
+    def check_signup_success(self, firstName, lastName):
+        userText = self.driver.find_element_by_xpath("//*[@id=\"header\"]/div[2]/div/div/nav/div[1]/a[1]/span[1]").text
+        if (firstName in userText) and (lastName in userText):
+            return True
+        return False
