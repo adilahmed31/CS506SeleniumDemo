@@ -1,4 +1,5 @@
 # CS506SeleniumDemo
+# Slides, Scripts and Assignment Solutions for TA lecture given as part of CS 506 - Software Engineering at UW-Madison
  Selenium WebDriver Script Examples
  
  Instructions (For Google Chrome):
